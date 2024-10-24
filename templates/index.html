@@ -1,0 +1,24 @@
+<h1>Hello World</h1>
+
+<p>this is my first webpage</p>
+
+<p>My name is {{first_name}}</p>
+<p>{{ stuff|title }}</p>
+
+<!--creating a for loop that would print out each list one by one using jinja -->
+<h3>pizza:</h3>
+
+{% for topping in pizza %}
+
+    {% if topping ==41 %}
+        {{ topping + 100 }}
+    {%else%}
+        {{ topping }}<br/> 
+    {%endif%}       
+<!--when using if statement endif is being used-->
+    {{ topping }} <br/>
+{% endfor %}
+<!--to call an individual item in the list -->
+
+<br/><br/>
+{{ pizza.0}}
