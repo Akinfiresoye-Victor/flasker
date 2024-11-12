@@ -1,0 +1,60 @@
+<!--starts a loop to display flashed message meaning temporary messages stored in a session stored-->
+{% extends 'base.html'%}
+{% block content%}
+    {% for message in get_flashed_messages() %}
+    <!--craeting a bootstrap like box with a success message, like an alert-->
+     <div class="alert alert-success    alert-dismissible fade show" role="alert">
+    <!--displays the flashed message you can also play around with it-->  
+        Hey {{name}} - {{ message }}
+    <!--crating a button to close the alert -->
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!--all python functions must be closed with an end block-->
+    {% endfor %}
+    <!--if statement to check if the variable is not empty-->
+    {% if name%}
+    <!--displays a messsage with hello {inputed name} after submitting-->
+        <h1> Hello {{ name }}!!!</h1>
+
+
+
+
+       
+    <!--else if empty displays whats your name-->
+    {%else %}
+        <h1>User list</h1>
+        <br/>
+<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+        <!--the form method is used when ure dealing or making forms-->
+        <!--creating a tag thats send data using the post methoed-->
+        <form method="POST">
+            <!--used to generate hidden input field used to protect data using csrf tokens-->
+            {{ form.hidden_tag() }}
+            <!--displays the label for the name field, while the class adds botstrap styling-->
+            {{form.name.label(class="form-label")}}
+            <!--displays the name input field, while class adds bootstrap styling-->
+            {{form.name(class="form-control")}}
+            <!--creating a label showing whats your name and its entry space-->
+            {{form.email.label(class="form-label")}}
+            {{form.email(class="form-control")}}
+            <br/>
+            <!--creating a  submit button-->
+            {{form.submit(class="btn btn-primary",
+            class="btn btn-dark")}}
+            <!--the form attribute is just used to create or fill up what you want to be in the form-->
+        </form>
+    </div>
+    <br/><br/><br/>
+    <!--modifying the registered name with a table-->
+    <table class="table table-hover table-bordered">
+<!--creating a loop to crosscheck through registered users that are aranged with the date added-->        
+    {% for our_user in our_users %}
+        <tr>
+<!--trying to make the name links so they can be edited, assigning the id's of the saved record since id was given as an argument-->
+        <td>{{our_user.id}}. <a href="{{ url_for('update', id=our_user.id)}}">{{our_user.name}}</a> - {{our_user.email}}</td>
+            </tr>
+    {%endfor%}
+    </table>
+        {%endif%}
+    {% endblock%}
